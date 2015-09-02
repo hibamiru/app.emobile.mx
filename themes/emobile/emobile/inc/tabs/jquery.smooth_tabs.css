@@ -1,0 +1,41 @@
+.smoothTabs {
+
+}
+#wrapper-tabs{
+    margin: 0 auto;
+    overflow: hidden;
+}
+.smoothTabs ul.option-tabs {
+    list-style: none;
+	/*float:left;*/
+}
+.smoothTabs ul.option-tabs li {
+	float: left;
+	display: inline;
+	cursor: pointer;
+	font-weight: normal;
+	overflow:hidden;
+	/*clear:both;*/
+}
+.smoothTabs ul.option-tabs li:hover{
+    opacity: 0.6;
+}
+.smoothTabs div{
+
+}
+li.smoothTabsLiCurrent{
+
+}
+.smoothTabs ul li  {  }
+.smoothTabs ul li  {  
+    text-indent: 0;
+}
+.smoothTabs ul li:before {
+    content: " ";
+}
+
+.smoothTabsDivHidden {
+    display: none !important;
+}
+.smoothTabsDivVisible{
+}

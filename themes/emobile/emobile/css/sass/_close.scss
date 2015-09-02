@@ -1,0 +1,649 @@
+/*------------------------------------------------*/
+/*-----------------[CLOSE CSS]------------------------*/
+/*------------------------------------------------*/
+
+
+/* =Responsive Structure
+----------------------------------------------- */
+
+/* medium Resolution */
+@media (max-width: 1200px) {
+	/* HEADER */
+	/* Bajamos el cuadro de busqueda */
+	
+	#access ul, .submenu-dependencia h3.nombre-submenu {
+		font-size: 1.1em;
+	}
+	.submenu-dependencia h3.nombre-submenu,
+	.submenu-dependencia #access {
+	  margin: 0;
+	  padding: 0;
+	  width: 100% !important;
+	  display: block;
+	  list-style: none;
+	}
+	
+	
+	
+	/* GENERAL */
+	#primary, #primary-full {
+		max-width: 1036px; 
+		padding: 1.5em 5% 20px;
+		float: none;
+		width: 90%;
+	}
+	#secondary {
+		max-width: 1036px;
+		padding: 1.5em 10%;
+		float: none;
+		margin: 0;
+	}
+	#content article {
+		padding: 0;
+	}
+	/* PLANTILLAS*/
+	#articulos-portada {
+		width: 100%;
+		margin: 0px 0px 1em;
+	}
+	
+	
+	.bloques-portada {
+    	padding: 9px 0px;
+    	max-width: 100%;
+	}
+	#sidebar-portada {
+		width: 30%;
+		margin: 0;
+	}
+	#articulos-portada {
+		width: 65%;
+		margin: 0;
+		margin-bottom: 1em;	
+	}
+	.enlace-portada h3 {
+		width: 90%;
+		height: 3em;
+	}
+	/* Dependencia */
+	.bloques-texto-dependencia {
+		display: none;
+	}
+	.articulos-dependencia {
+		width: 100%;
+		padding: 0;
+		float: none;
+		max-width: 100%;	
+	}
+	/* galeria */
+	.bloque-galeria-medios,
+	.bloque-galeria-medios2,
+	.bloque-catalogo {
+		width: 48%;	
+		margin: 0 1% 2em 1%;
+	}
+	/* Eventos */
+	h2.titulo-evento,
+	a.bloque-galeria-medios2 h3  {
+		max-width: 70%;	
+	}
+	/* Formulario */
+	.contenido-formulario {
+		width: 100%;
+		padding: 0;
+		float: none;
+		margin-bottom: 2em;
+	}
+	.area-formulario {
+		padding: 4%;	
+		width: 92%;
+		float: none;
+		margin-bottom: 1em;
+	}
+	/* Documentos  */
+	.bloque-documento {
+	    width: 47%;
+	}
+	/* Remove the margin on singular articles */
+	.singular .entry-header,
+	.singular .entry-content,
+	.singular footer.entry-meta,
+	.singular #comments-title {
+		width: 100%;
+	}
+	/* Simplify the pullquotes and pull styles */
+	.singular blockquote.pull {
+		margin: 0 0 1.625em; /* 26px */
+	}
+	.singular .pull.alignleft {
+		margin: 0 1.625em 0 0;
+	}
+	.singular .pull.alignright {
+		margin: 0 0 0 1.625em; /* 26px */
+	}
+	.singular .entry-meta .edit-link a {
+		left: 0;
+		position: absolute;
+		top: 40px;
+	}
+	.singular #author-info {
+		margin: 2.2em -8.8% 0;
+		padding: 20px 8.8%;
+	}
+	/* Make sure we have room for our comment avatars */
+	.commentlist {
+		width: 100%;
+	}
+	.commentlist > li.comment,
+	.commentlist .pingback {
+		margin-left: 102px;
+		width: auto;
+	}
+	/* And a full-width comment form */
+	#respond {
+		width: auto;
+	}
+	/* No need to float footer widgets at this size */
+	#colophon #supplementary .widget-area {
+		float: none;
+		margin-right: 0;
+		width: auto;
+	}
+	/* No need to float 404 widgets at this size */
+	.error404 #main .widget {
+		float: none;
+		margin-right: 0;
+		width: auto;
+	}
+
+}
+
+/* Smaller Resolution */
+@media (max-width: 768px) {
+	/* CONTENT */
+	img[class*="align"], img[class*="wp-image-"], #content .gallery .gallery-icon img {
+    width: 97.5%;
+	}
+	.entry-thumbnail {
+		float: none;
+		padding: 0 0 .8em 0;
+	}
+	.entry-thumbnail img {
+		width: 100%;
+	}
+	#content article {
+		padding: 0;
+	}
+	article.articulo-resumen {
+		width: 100%;	
+	}
+	/* SOCIAL*/
+	.recomienda, .bt-share, #footer-compartir {
+		width: 100%;
+		text-align:center;	
+	}
+	/* PLANTILLAS */
+	#sidebar-portada,
+	#sidebar-portada img {
+		width: 100%;
+		margin: 0;
+	}
+	#articulos-portada {
+		width: 100%;
+		margin: 0;
+		margin-bottom: 1em;	
+	}
+	.enlace-portada {
+		height: 2em;
+		margin-bottom: 1em;	
+	}
+	.enlace-portada h3 {
+		width: 100%;
+		min-height: 2em;
+		padding: 0;
+	}
+	.enlace-portada img {
+		display: none;
+	}
+	a.titulo-articulos-portada  {
+		margin-top: 1em;
+		font-size: 1.4em;	
+	}
+	#galeria-medios {
+		display: none;	
+	}
+	/* Resumen de artículos */
+	.fecha-resumen-articulos {
+		width: 100%;	
+		margin-bottom: .5em;
+	}
+	.content-resto-articulo  {
+		padding: 0;
+	}
+	/* contacto */
+	#mapa-contacto {
+		display: none;
+	}
+	/* mapa del sitio */
+	#mapa-del-sitio-subseccion {
+		width: 100%;
+		text-align: center;
+	}
+	#mapa-del-sitio h2 {
+		text-align: center;	
+	}
+	/* Pestañas */
+	ul.option-tabs li {
+		width: 90%;
+		float: none;
+		display: block;
+		margin: .2em 0;
+	}
+	.title-sh-tabs {
+    	padding: 1em 5%;
+	}
+	/* Dependencia */
+	.slider-dependencia {
+		display: none;	
+	}
+	.info-dependencia {
+		max-width: 100%;
+		width: 100%;
+		margin: 0;	
+		padding: 0;
+	}
+	.nombre-dependencia {
+		text-align: center;
+	}
+	.bloque-portada-dependencia,
+	.bloque-portada {
+		width: 100% !important;
+		max-width: 100%;
+		float:none;	
+	}
+	.bloque-portada-dependencia img,
+	.bloque-portada img  {
+		display:none;	
+	}
+	.bloque-portada-dependencia h3,
+	.bloque-portada h3  {
+		line-height: 2em;
+		font-size: 1.5em;
+		margin-bottom: 1px;	
+	}
+	/* galeria */
+		/* galeria */
+	.bloque-galeria-medios,
+	.bloque-galeria-medios2,
+	.bloque-catalogo, 
+	.bloque-evento { 
+		width: 100%;	
+		margin: 0 0 2em 0;
+		padding: 0;
+	}
+	.bloque-galeria-medios img, 
+	.bloque-galeria-medios2 img,
+	.bloque-evento img,
+	.bloque-catalogo img{
+		width: 100%;	
+	}
+	
+	/* Documentos  */
+	.bloque-documento {
+	    width: 100%;
+		margin: 0 0 1.5em 0;
+	}
+	.bloque-documento h3 {
+		max-width: 98%;	
+		margin: .25em 1%;
+	}
+	
+	
+	/* FORMS */
+	form.suscripcion-boletin,
+	form.suscripcion-boletin input[type="submit"],
+	form.wpcf7-form input[type="submit"] {
+		clear: none;
+		width: 100%;	
+	}
+	
+	
+	
+	/* Floated content doesn't work well at this size */
+	.alignleft,
+	.alignright {
+		display: block;
+		float: none;
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.singular .hentry {
+		padding: 1.625em 0 0;
+	}
+	.singular.page .hentry {
+		padding: 1.625em 0 0;
+	}
+	/* Talking avatars take up too much room at this size */
+	.commentlist > li.comment,
+	.commentlist > li.pingback {
+		margin-left: 0 !important;
+	}
+	.commentlist .avatar {
+		background: transparent;
+		display: block;
+		padding: 0;
+		position: static;
+	}
+	.commentlist .children .avatar {
+		background: none;
+		left: 2.2em;
+		padding: 0;
+		position: absolute;
+		top: 2.2em;
+	}
+	#author-avatar {
+		display: none;
+	}
+	#author-description {
+		margin: 0;	
+	}
+	/* Use the available space in the smaller comment form */
+	#respond input[type="text"] {
+		width: 95%;
+	}
+	#respond .comment-form-author .required,
+	#respond .comment-form-email .required {
+		left: 95%;
+	}
+	#content .gallery-columns-3 .gallery-item {
+		width: 31%;
+		padding-right: 2%;
+	}
+	#content .gallery-columns-3 .gallery-item img {
+		width: 100%;
+		height: auto;
+	}
+	
+	/* HEADER */
+	/* Centramos el logo */
+	#logo {
+		margin: 0 auto;
+		clear: both;
+		text-align: center;	
+		float: none;
+	}
+	/* Centramos los botones sociales */
+	#social-header {
+		float: none;
+		margin: 0 auto;
+		text-align: center;
+		clear: both;	
+	}
+	/* desaparecemos el cuadro de busqueda */
+	#header-content #searchform {
+		display: none;
+	}
+	
+	/*! Menu; colapsa el menú */
+	#access { 
+		width: 100%;
+		max-width: 100%;	
+	}
+	#access ul {
+		font-size: 1.1em;
+	}
+	#access ul li a {
+		height: 2.625em;	
+	}
+	#access ul ul a {
+		width: 100%;
+		max-width: 100%;
+		padding: 10px 0;	
+	}
+	 .nav-collapse ul {
+	  margin: 0;
+	  padding: 0;
+	  width: 100% !important;
+	  display: block;
+	  list-style: none;
+	}
+	
+	.nav-collapse li {
+	  width: 100%;
+	  display: block;
+	  text-align: center;
+	  border-bottom: #CCC 1px solid;
+	}
+	
+	.nav-toggle {
+	  -webkit-tap-highlight-color: rgba(0,0,0,0);
+	  -webkit-touch-callout: none;
+	  -webkit-user-select: none;
+	  -moz-user-select: none;
+	  -ms-user-select: none;
+	  -o-user-select: none;
+	  user-select: none;
+	}
+	/* FOOTER */
+	/* Firma SH  */
+	#sign-sh  {	padding: 0 5px;  }
+	#sign-sh a { font-size: .8em; display:block; margin: 0 auto; }
+	
+	#contenedor-home-flexslider, .flexslider {
+		display: none;		
+	}
+	
+}
+/* Super smaller Resolution */
+@media (max-width: 320px) {
+	#sign-sh  {	float: none;  }
+}
+
+
+/* =Print
+----------------------------------------------- */
+
+@media print {
+	body {
+		background: none !important;
+		font-size: 10pt;
+	}
+	footer.entry-meta a[rel=bookmark]:link:after,
+	footer.entry-meta a[rel=bookmark]:visited:after {
+		content: " [" attr(href) "] "; /* Show URLs */
+	}
+	#page {
+		clear: both !important;
+		display: block !important;
+		float: none !important;
+		max-width: 100%;
+		position: relative !important;
+	}
+	#header-content {
+		border-top: none !important;
+		padding: 0;
+	}
+	#header-content hgroup {
+		margin: 0;
+	}
+	#site-title a {
+		font-size: 21pt;
+	}
+	#site-description {
+		font-size: 10pt;
+	}
+	#header-content #searchform {
+		display: none;
+	}
+	#header-content img {
+		display: none;
+	}
+	#access {
+		display: none;
+	}
+	#main {
+		border-top: none;
+		box-shadow: none;
+	}
+	#primary {
+		float: left;
+		margin: 0;
+		width: 100%;
+	}
+	#content {
+		margin: 0;
+		width: auto;
+	}
+	.singular #content {
+		margin: 0;
+		width: 100%;
+	}
+	.singular .entry-header .entry-meta {
+		position: static;
+	}
+	.entry-meta .edit-link a {
+		display: none;
+	}
+	#content nav {
+		display: none;
+	}
+	.singular .entry-header,
+	.singular .entry-content,
+	.singular footer.entry-meta,
+	.singular #comments-title {
+		margin: 0;
+		width: 100%;
+	}
+	.singular .hentry {
+		padding: 0;
+	}
+	.entry-title,
+	.singular .entry-title {
+		font-size: 21pt;
+	}
+	.entry-meta {
+		font-size: 10pt;
+	}
+	.entry-header .comments-link {
+		display: none;
+	}
+	.page-link {
+		display: none;
+	}
+	.singular #author-info {
+		background: none;
+		border-bottom: none;
+		border-top: none;
+		margin: 2.2em 0 0;
+		padding: 0;
+	}
+	#respond {
+		display: none;
+	}
+	.widget-area {
+		display: none;
+	}
+	#colophon {
+		display: none;
+	}
+
+	/* Comments */
+	.commentlist > li.comment {
+		background: none;
+		border: 1px solid #ddd;
+		-moz-border-radius: 3px 3px 3px 3px;
+		border-radius: 3px 3px 3px 3px;
+		margin: 0 auto 1.625em; /* 26px */
+		padding: 1.625em; /* 26px */
+		position: relative;
+		width: auto;
+	}
+	.commentlist .avatar {
+		height: 39px;
+		left: 2.2em;
+		top: 2.2em;
+		width: 39px;
+	}
+	.commentlist li.comment .comment-meta {
+		line-height: 1.625em; /* 26px */
+		margin-left: 50px;
+	}
+	.commentlist li.comment .fn {
+		display: block;
+	}
+	.commentlist li.comment .comment-content {
+		margin: 1.625em 0 0;
+	}
+	.commentlist .comment-edit-link {
+		display: none;
+	}
+	.commentlist > li::before,
+	.commentlist > li.bypostauthor::before {
+		content: '';
+	}
+	.commentlist .reply {
+		display: none;
+	}
+
+	/* Post author highlighting */
+	.commentlist > li.bypostauthor {
+		color: #444;
+	}
+	.commentlist > li.bypostauthor .comment-meta {
+		color: #666;
+	}
+	.commentlist > li.bypostauthor:before {
+		content: none;
+	}
+
+	/* Post Author threaded comments */
+	.commentlist .children > li.bypostauthor {
+		background: #fff;
+		border-color: #ddd;
+	}
+	.commentlist .children > li.bypostauthor > article,
+	.commentlist .children > li.bypostauthor > article .comment-meta {
+		color: #666;
+	}
+}
+
+
+/* =IE7
+----------------------------------------------- */
+
+#ie7 article.intro {
+	margin-left: -7.6%;
+	margin-right: -7.6%;
+	padding-left: -7.6%;
+	padding-right: -7.6%;
+	max-width: 1036px;
+}
+#ie7 .featured-posts {
+	margin: 0 -7.6%;
+}
+#ie7 .featured-post {
+	margin-left: 0;
+	margin-right: 0;
+	max-width: 100%;
+}
+#ie7 section.recent-posts {
+	margin-right: 7.6%;
+}
+
+
+/* =IE8
+----------------------------------------------- */
+
+#ie8 section.feature-image.large img {
+	width: auto;
+}
+#ie8 section.featured-post .attachment-small-feature {
+	max-width: none;
+}
+
+
+/* =Arreglan elementos cuando colapsan
+----------------------------------------------- */
+.group:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+.group { display: inline-block; clear: both; }
+/* start commented backslash hack \*/ * html .group { height: 1%; } .group { display: block; }
