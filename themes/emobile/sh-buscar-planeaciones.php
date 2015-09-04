@@ -9,7 +9,20 @@
  */
 
 get_header(); ?>
+<?php //print_array($_POST); ?>
 <?php //show_errors(); ?>
+<?php
+$nivel 		= FALSE;
+$grado		= FALSE;
+$asignatura = FALSE;
+$bloque 	= FALSE;
+if (isset($_POST)) {
+	$nivel 		= $_POST['nivel'];
+	$grado		= $_POST['grado'];
+	$asignatura = $_POST['asignatura'];
+	$bloque 	= $_POST['bloque'];
+}
+?>
 
 	<div id="primary-full">
 		<div id="content" role="main">
@@ -22,64 +35,140 @@ get_header(); ?>
 			        	<label for="nivel">Nivel</label>
 			        	<select name="nivel">
 							<option value=""></option>
-			            	<option value="Preescolar">Preescolar</option>
-			            	<option value="Primaria">Primaria</option>
-			            	<option value="Secundaria">Secundaria</option>
+			            	<option <?php echo ($nivel == 'Preescolar' ? 'selected' : ''); ?> value="Preescolar">Preescolar</option>
+			            	<option <?php echo ($nivel == 'Primaria' ? 'selected' : '')?> value="Primaria">Primaria</option>
+			            	<option <?php echo ($nivel == 'Secundaria' ? 'selected' : ''); ?> value="Secundaria">Secundaria</option>
 			            </select>
 			            <label for="grado">Grado</label>
 			        	<select name="grado">
 				            <option value=""></option>
-			                <option value="1°">1°</option>
-			                <option value="2°">2°</option>
-			                <option value="3°">3°</option>
-			                <option value="4°">4°</option>
-			                <option value="5°">5°</option>
-			                <option value="6°">6°</option>
+			                <option <?php echo ($grado == '1°') ? 'selected' : '' ?> value="1°">1°</option>
+			                <option <?php echo ($grado == '2°') ? 'selected' : '' ?> value="2°">2°</option>
+			                <option <?php echo ($grado == '3°') ? 'selected' : '' ?> value="3°">3°</option>
+			                <option <?php echo ($grado == '4°') ? 'selected' : '' ?> value="4°">4°</option>
+			                <option <?php echo ($grado == '5°') ? 'selected' : '' ?> value="5°">5°</option>
+			                <option <?php echo ($grado == '6°') ? 'selected' : '' ?> value="6°">6°</option>
 			            </select>
 			            <label for="asignatura">Asignatura</label>
 			        	<select name="asignatura">
 			            	<option value=""></option>
-			                <option value="Español">Español</option>
-			                <option value="Matemáticas">Matemáticas</option>
+			                <option <?php echo ($asignatura == 'Español') ? 'selected' : '' ?> value="Español">Español</option>
+			                <option <?php echo ($asignatura == 'Matemáticas') ? 'selected' : '' ?> value="Matemáticas">Matemáticas</option>
 			            </select>
 			            <label for="bloque">Bloque</label>
 			        	<select name="bloque">
 			            	<option value=""></option>
-			                <option value="I">I</option>
-			                <option value="II">II</option>
-			                <option value="III">III</option>
-			                <option value="IV">IV</option>
-			                <option value="V">V</option>
+			                <option <?php echo ($bloque == 'I') ? 'selected' : '' ?> value="I">I</option>
+			                <option <?php echo ($bloque == 'II') ? 'selected' : '' ?> value="II">II</option>
+			                <option <?php echo ($bloque == 'III') ? 'selected' : '' ?> value="III">III</option>
+			                <option <?php echo ($bloque == 'IV') ? 'selected' : '' ?> value="IV">IV</option>
+			                <option <?php echo ($bloque == 'V') ? 'selected' : '' ?> value="V">V</option>
 			            </select>
+						<input type="submit" name="consultar" value="Consultar">
 			        </form>
 				</section>
 				
-				<?php $level = 'Secundaria'; ?>
-				
 				<?php
 
-				// Meta keys
-				$field_nivel		= $_POST['nivel'];
-				$field_grado		= $_POST['grado'];
-				$field_asignatura 	= $_POST['asignatura'];
-				$field_Bloque 		= $_POST['bloque'];
+				if (isset($_POST['consultar'])) {
 
-				//Meta values
-				$nivel;
-				$grado;
-				$grupo;
-				$bloque;
+					// Meta keys
+					$nivel			= $_POST['nivel'];
+					$grado			= $_POST['grado'];
+					$asignatura 	= $_POST['asignatura'];
+					$bloque 		= $_POST['bloque'];
+					$meta_grado		= FALSE;
+					$meta_asignatura = FALSE;
+					$meta_bloque	= FALSE;
+
+					// Meta vars
+					if ($grado) {
+						
+						if ($nivel == 'Primaria')
+							$suffix = 'pri';
+						
+						if ($nivel == 'Secundaria')
+							$suffix = 'sec';
+						
+						$meta_grado = array(
+						
+							'key' => 'pl_grado_'.$suffix,
+							'value' => $grado,
+							'compare' => '=',
+						
+						);
+
+					}
+
+					if ($asignatura) {
+						
+						$meta_asignatura = array(
+						
+							'key' => 'pl_asignatura',
+							'value' => $asignatura,
+							'compare' => '=',
+						
+						);
+
+					}
+
+					if ($bloque) {
+						
+						$meta_bloque = array(
+						
+							'key' => 'pl_bloque',
+							'value' => $bloque,
+							'compare' => '=',
+						
+						);
+
+					}
+
+					if ($grado OR $asignatura OR $bloque) {
+
+						$meta_query = array(
+							'meta_query' => array( 
+									'relation' => 'AND',
+									array(
+										'key' => 'pl_nivel',
+										'value' => $nivel,
+										'compare' => '=',
+									),
+								)
+							);
+
+						if ($grado) {
+							$meta_query['meta_query'][] = $meta_grado;
+						}
+
+						if ($asignatura) {
+							$meta_query['meta_query'][] = $meta_asignatura;
+						}
+
+						if ($bloque) {
+							$meta_query['meta_query'][] = $meta_bloque;
+						}
+
+					} else {
+						$meta_query = array(
+							//query preescolar
+							'meta_key' => 'pl_nivel',
+							'meta_value' => $nivel,
+			    			);
+					}
+				    
+				    //print_array($meta_query);
+				    $planeaciones = get_plans($meta_query);
+				    
+				    // HE AQUÍ EL RESULTADO.
+				    if ($planeaciones) {
+				    	echo 'Se encontraron: ' . count($planeaciones) . ' planeaciones para tu búsqueda.';
+				    	print_array($planeaciones);
+				    } else {
+				    	echo 'No se encontraron planeaciones para tus criterios de búsqueda.';
+				    }
 				
-				?>
-				
-				<?php $meta_query = array(
-					//query preescolar
-					'meta_key' => 'pl_nivel',
-					'meta_value' => $level,
-		    		);
-			    
-			    $planeaciones = get_plans($meta_query); ?>
-			    <?php print_array($planeaciones); ?>
+				} //if (isset($_POST['consultar'])) { ?>
 
 
 			<?php endwhile; // end of the loop. ?>

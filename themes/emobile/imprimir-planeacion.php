@@ -9,7 +9,7 @@ ini_set('display_errors', 'On');
  * @subpackage EMobile
  * @since EMobile 1.0
  */
-user_redirect();
+//user_redirect();
 ?>
 <?php $planeacion_info = planeacion_pdf_info( get_query_var('id_planeacion') );?>
 <?php //echo '<pre style="display:block;">'; print_r($planeacion_info); echo '</pre>'; // PRINT_R ?>

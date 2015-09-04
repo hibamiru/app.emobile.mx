@@ -42,6 +42,7 @@ add_action('init','wpse46108_register_param');
 function wpse46108_register_param() { 
     global $wp; 
     $wp->add_query_var('id_planeacion'); 
+    $wp->add_query_var('id_autor'); 
 }
 /** Envía el valor del url del tema en uso  */
 function plantilla_url() {
@@ -643,9 +644,7 @@ function user_redirect() {
 				wp_redirect( site_url( '/buscar-planeaciones/' ) ); exit;
 			}
 			
-		}
-
-		if (!$is_fc)
+		} else if (!$is_fc)
 		{
 			if (is_page_template('validar-formulario.php'))
 			{
@@ -793,31 +792,33 @@ function participant_c_data() {
 	$user_data['p_ct_gra_4']			= '';
 	$user_data['p_ct_gru_4']			= '';
 	$user_data['p_ct_nserie_ipads']		= '';
-	if (in_array('Dirección',$user_data['p_funcion_grado']))
-	{
-		$user_data['p_organizacion']	= $user_meta['p_organizacion'][0];
-		$user_data['p_ngrupos_participantes']=$user_meta['p_ngrupos_participantes'][0];
-		$user_data['p_ct_gra_1']		= $user_meta['p_ct_gra_1'][0];
-		$user_data['p_ct_gru_1']		= $user_meta['p_ct_gru_1'][0];
-		$user_data['p_ct_gra_2']		= $user_meta['p_ct_gra_2'][0];
-		$user_data['p_ct_gru_2']		= $user_meta['p_ct_gru_2'][0];
-		$user_data['p_ct_gra_3']		= $user_meta['p_ct_gra_3'][0];
-		$user_data['p_ct_gru_3']		= $user_meta['p_ct_gru_3'][0];
-		$user_data['p_ct_gra_4']		= $user_meta['p_ct_gra_4'][0];
-		$user_data['p_ct_gru_4']		= $user_meta['p_ct_gru_4'][0];
-		$user_data['p_ct_nserie_ipads']	= '';
-		$ipads = get_field('p_ct_nserie_ipads', 'user_' . $user_ID);
-		if ($ipads)
+	if ($user_data['p_funcion_grado']) {
+		if (in_array('Dirección',$user_data['p_funcion_grado']))
 		{
-			foreach ($ipads as $ipad_array)
+			$user_data['p_organizacion']	= $user_meta['p_organizacion'][0];
+			$user_data['p_ngrupos_participantes']=$user_meta['p_ngrupos_participantes'][0];
+			$user_data['p_ct_gra_1']		= $user_meta['p_ct_gra_1'][0];
+			$user_data['p_ct_gru_1']		= $user_meta['p_ct_gru_1'][0];
+			$user_data['p_ct_gra_2']		= $user_meta['p_ct_gra_2'][0];
+			$user_data['p_ct_gru_2']		= $user_meta['p_ct_gru_2'][0];
+			$user_data['p_ct_gra_3']		= $user_meta['p_ct_gra_3'][0];
+			$user_data['p_ct_gru_3']		= $user_meta['p_ct_gru_3'][0];
+			$user_data['p_ct_gra_4']		= $user_meta['p_ct_gra_4'][0];
+			$user_data['p_ct_gru_4']		= $user_meta['p_ct_gru_4'][0];
+			$user_data['p_ct_nserie_ipads']	= '';
+			$ipads = get_field('p_ct_nserie_ipads', 'user_' . $user_ID);
+			if ($ipads)
 			{
-				foreach ($ipad_array as $ipad_s)
+				foreach ($ipads as $ipad_array)
 				{
-					$ipads_array[$ipad_s] = $ipad_s;
+					foreach ($ipad_array as $ipad_s)
+					{
+						$ipads_array[$ipad_s] = $ipad_s;
+					}
 				}
+				$ipads_array = array_values($ipads_array);
+				$user_data['p_ct_nserie_ipads'] = $ipads_array;
 			}
-			$ipads_array = array_values($ipads_array);
-			$user_data['p_ct_nserie_ipads'] = $ipads_array;
 		}
 	}
 	//Form completed
@@ -827,6 +828,139 @@ function participant_c_data() {
 }
 
 //PARTICIPANT CUSTOM DATA
+function perfil_autor($autor_id = '') {
+	$user_ID	= $autor_id;
+	$user_meta	= get_user_meta( $user_ID );
+	$user_data	= array();
+	
+	//Personal data
+	$p_foto								= wp_get_attachment_image_src( $user_meta['p_foto'][0], 'thumbnail' );
+	$p_mime_type						= get_post_mime_type($user_meta['p_foto'][0]);
+	$user_data['mime_type']				= $p_mime_type;
+	switch ($p_mime_type) {
+		case 'image/jpg':
+			$user_data['p_foto']		= $p_foto[0];
+			break;
+		case 'image/jpeg':
+			$user_data['p_foto']		= $p_foto[0];
+			break;
+		default:
+			$user_data['p_foto']		= get_bloginfo( 'template_url' ) . '/images/default-avatar.jpg';
+			break;
+	}
+	$user_data['p_nombre']				= $user_meta['p_nombre'][0];
+	$user_data['p_apellido_p']			= $user_meta['p_apellido_p'][0];
+	$user_data['p_apellido_m']			= $user_meta['p_apellido_m'][0];
+	$user_data['p_sexo']				= $user_meta['p_sexo'][0];
+	$user_data['p_edad']				= $user_meta['p_edad'][0];
+	$user_data['p_sede_c']				= $user_meta['p_sede_c'][0];
+	$user_data['p_lider_c']				= $user_meta['p_lider_c'][0];
+	$user_data['p_cuenta_icloud']		= $user_meta['p_cuenta_icloud'][0];
+	$user_data['p_rfc']					= strtoupper($user_meta['p_rfc'][0]);
+	$user_data['p_curp']				= strtoupper($user_meta['p_curp'][0]);
+	$user_data['p_email']				= $user_meta['nickname'][0];
+	$user_data['p_telefono_p']			= $user_meta['p_telefono_p'][0];
+	$user_data['p_telefono_c']			= $user_meta['p_telefono_c'][0];
+	
+	//Job data
+	$user_data['p_nivel_se']			= $user_meta['p_nivel_se'][0];
+	$user_data['p_modalidad_pre_pri']	= $user_meta['p_modalidad_pre_pri'][0];
+	$user_data['p_modalidad_sec']		= $user_meta['p_modalidad_sec'][0];
+	$user_data['p_modalidad_eesp']		= $user_meta['p_modalidad_eesp'][0];
+	$user_data['p_modalidad']			= '';
+	if ($user_data['p_nivel_se'] == 'Preescolar' OR $user_data['p_nivel_se'] == 'Primaria')
+	{
+		$user_data['p_modalidad']		= $user_data['p_modalidad_pre_pri'];
+	}
+	else if ($user_data['p_nivel_se'] == 'Secundaria')
+	{
+		$user_data['p_modalidad']		= $user_data['p_modalidad_sec'];
+	}
+	else if ($user_data['p_nivel_se'] == 'Educación especial')
+	{
+		$user_data['p_modalidad']		= $user_data['p_modalidad_eesp'];
+	}
+	$user_data['p_educacion_especial']	= $user_meta['educacion_especial'][0];
+	if ($user_data['p_educacion_especial']) {
+		$user_data['p_modalidad_eesp']	= $user_data['p_modalidad_eesp'];
+	}
+	$user_data['p_sostenimiento']		= $user_meta['p_sostenimiento'][0];
+	$user_data['p_funcion_grado']		= unserialize($user_meta['p_funcion_grado'][0]);
+	$user_data['p_nombre_ct']			= $user_meta['p_nombre_ct'][0];
+	$user_data['p_clave_cct']			= strtoupper($user_meta['p_clave_cct'][0]);
+	$user_data['p_telefono_t']			= $user_meta['p_telefono_t'][0];
+	$user_data['p_localidad']			= $user_meta['p_localidad'][0];
+	$user_data['p_municipio']			= $user_meta['p_municipio'][0];
+	$user_data['p_zona_escolar']		= $user_meta['p_zona_escolar'][0];
+	$user_data['p_sector_escolar']		= $user_meta['p_sector_escolar'][0];
+	$user_data['p_antiguedad_se']		= $user_meta['p_antiguedad_se'][0];
+	$user_data['p_cantidad_alumnos']	= $user_meta['p_cantidad_alumnos'][0];
+
+	//Academic data
+	$user_data['p_participa_cm']		= $user_meta['p_participa_cm'][0];
+	$user_data['p_nivel_cm']			= '';
+	$user_data['p_vertiente_cm']		= '';
+	if ($user_data['p_participa_cm'] == 'Sí')
+	{
+		$user_data['p_nivel_cm']		= $user_meta['p_nivel_cm'][0];
+		$user_data['p_vertiente_cm']	= $user_meta['p_vertiente_cm'][0];
+	}
+	$user_data['p_licenciatura']		= $user_meta['p_licenciatura'][0];
+	$user_data['p_institucion']			= $user_meta['p_institucion'][0];
+	$user_data['p_grado_estudios']		= $user_meta['p_grado_estudios'][0];
+	$user_data['p_institucion_uge']		= $user_meta['p_institucion_uge'][0];
+	$user_data['p_estudios_actuales']	= $user_meta['p_estudios_actuales'][0];
+	$user_data['p_nserie_ipad']			= $user_meta['p_nserie_ipad'][0];
+
+	//Principals data
+	
+	$user_data['p_organizacion']		= '';
+	$user_data['p_ngrupos_participantes']='';
+	$user_data['p_ct_gra_1']			= '';
+	$user_data['p_ct_gru_1']			= '';
+	$user_data['p_ct_gra_2']			= '';
+	$user_data['p_ct_gru_2']			= '';
+	$user_data['p_ct_gra_3']			= '';
+	$user_data['p_ct_gru_3']			= '';
+	$user_data['p_ct_gra_4']			= '';
+	$user_data['p_ct_gru_4']			= '';
+	$user_data['p_ct_nserie_ipads']		= '';
+	if ($user_data['p_funcion_grado']) {
+		if (in_array('Dirección',$user_data['p_funcion_grado']))
+		{
+			$user_data['p_organizacion']	= $user_meta['p_organizacion'][0];
+			$user_data['p_ngrupos_participantes']=$user_meta['p_ngrupos_participantes'][0];
+			$user_data['p_ct_gra_1']		= $user_meta['p_ct_gra_1'][0];
+			$user_data['p_ct_gru_1']		= $user_meta['p_ct_gru_1'][0];
+			$user_data['p_ct_gra_2']		= $user_meta['p_ct_gra_2'][0];
+			$user_data['p_ct_gru_2']		= $user_meta['p_ct_gru_2'][0];
+			$user_data['p_ct_gra_3']		= $user_meta['p_ct_gra_3'][0];
+			$user_data['p_ct_gru_3']		= $user_meta['p_ct_gru_3'][0];
+			$user_data['p_ct_gra_4']		= $user_meta['p_ct_gra_4'][0];
+			$user_data['p_ct_gru_4']		= $user_meta['p_ct_gru_4'][0];
+			$user_data['p_ct_nserie_ipads']	= '';
+			$ipads = get_field('p_ct_nserie_ipads', 'user_' . $user_ID);
+			if ($ipads)
+			{
+				foreach ($ipads as $ipad_array)
+				{
+					foreach ($ipad_array as $ipad_s)
+					{
+						$ipads_array[$ipad_s] = $ipad_s;
+					}
+				}
+				$ipads_array = array_values($ipads_array);
+				$user_data['p_ct_nserie_ipads'] = $ipads_array;
+			}
+		}
+	}
+	//Form completed
+	$user_data['p_fc']					= $user_meta['p_fc'][0];
+
+	return $user_data;
+}
+
+//PARTICIPANT FORM VALIDATION
 function allow_form_validation() {
 	$user_ID	= get_current_user_id();
 	$user_meta	= get_user_meta( $user_ID );
@@ -1435,6 +1569,63 @@ function query_user_plans() {
 	return $titles;
 }
 
+function query_autor_plans($id_autor='') {
+	//Get user level or educational service
+	$user_ID	= $id_autor;
+	$user_meta	= get_user_meta( $user_ID );
+	$author = $user_meta['p_nombre'][0] . ' ' . $user_meta['p_apellido_p'][0] . ' ' . $user_meta['p_apellido_m'][0] . ' ';
+	$level = $user_meta['p_nivel_se'][0];
+
+	switch ($level) {
+		case 'Preescolar' :
+			$cat = 6;
+			$grado = '';
+			break;
+		case 'Primaria' ;
+			$cat = 7;
+			$grado = 'pri';
+			break;
+		case 'Secundaria' ;
+			$cat = 8;
+			$grado = 'sec';
+			break;
+		default :
+			$cat = '';
+	}
+
+	$args = array(
+			'author' => $user_ID,
+			'cat' => $cat,
+		);
+		
+	$the_query = new WP_Query( $args );
+	// The Loop
+	if ( $the_query->have_posts() ) :
+	while ( $the_query->have_posts() ) : $the_query->the_post();
+	// Do Stuff
+		$status = 'Sin publicar';
+		if (get_field('pl_publicar_p') == 'Sí') {
+			$status = 'Publicada';
+		}
+		
+		$titles[get_the_ID()] = array(
+				'ID' => get_the_ID(),
+				'autor' => $author,
+				'nivel' => $level,
+				'asignatura' => get_field('pl_asignatura'),
+				'grado' => get_field('pl_grado_'.$grado),
+				'bloque' => get_field('pl_bloque'),
+				'aprendizaje_esp' => get_field('pl_aprendizaje_esp'),
+				'url_editar' => get_inicio_url() . '/editar-planeacion/?id_planeacion='.get_the_ID(),
+				'url_publicar' => get_inicio_url() . '/publicar-planeacion/?id_planeacion='.get_the_ID(),
+				'url_imp_pdf' => get_inicio_url() . '/imprimir-planeacion/?id_planeacion='.get_the_ID(),
+				'estado' => $status,
+			);
+	endwhile;
+	endif; 
+	return $titles;
+}
+
 //GET LESSON PLANS
 function get_plans($inargs = array()) {
 	$result = FALSE;
@@ -1452,11 +1643,26 @@ function get_plans($inargs = array()) {
 	if ( $the_query->have_posts() ) :
 	while ( $the_query->have_posts() ) : $the_query->the_post();
 		if (get_field('pl_publicar_p') == 'Sí') {
-		$result[get_the_ID()] = array(
-				'id' => get_the_ID(),
-				'url' => get_the_permalink(),
-				'title' => get_the_title(),
-				'nivel' => get_field('pl_nivel'),		
+
+			$suffix = FALSE;
+			if (get_field('pl_grado_pri'))
+				$suffix = 'pri';
+			if (get_field('pl_grado_sec'))
+				$suffix = 'sec';
+			
+			$result[get_the_ID()] = array(
+				'id'				=> get_the_ID(),
+				'url'				=> get_the_permalink(),
+				'title'				=> get_the_title(),
+				'nivel'				=> get_field('pl_nivel'),
+				'grado'				=> get_field('pl_grado_'.$suffix),
+				'asignatura'		=> get_field('pl_asignatura'),
+				'bloque'			=> get_field('pl_bloque'),
+				'topico_generativo' => get_field('pl_topico_g'),
+				'autor' => get_the_author_meta('p_nombre') . ' ' . get_the_author_meta('p_apellido_p') . ' ' . get_the_author_meta('p_apellido_m'),
+				'url_imp_pdf' => get_inicio_url() . '/imprimir-planeacion/?id_planeacion='.get_the_ID(),
+				'url_perfil_autor' => get_inicio_url() . '/perfil-autor/?id_autor='.get_the_author_meta('ID'),
+				//'autor_email' => get_the_author_meta('email'),
 			);
 		}
 	endwhile;
