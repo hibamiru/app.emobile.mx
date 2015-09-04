@@ -205,11 +205,11 @@ function in_complete_registration() {
     global $reg_errors, $fname, $email, $password, $ciudad, $estado, $tipo_usuario, $nivel_educativo;
     if ( count($reg_errors->get_error_messages()) < 1 ) {
         $userdata = array(
-        'user_login'	=> 	$email,
-        'user_email' 	=> 	$email,
-        'user_pass' 	=> 	$password,
-        'first_name' 	=> 	$fname,
-		);
+	        'user_login'	=> 	$email,
+	        'user_email' 	=> 	$email,
+	        'user_pass' 	=> 	$password,
+	        'first_name' 	=> 	$fname,
+			);
         $user_id = wp_insert_user( $userdata );
         update_user_meta( $user_id, 'ciudad', $ciudad );
         update_user_meta( $user_id, 'estado', $estado );

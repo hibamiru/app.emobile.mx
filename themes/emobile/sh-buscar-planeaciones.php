@@ -55,6 +55,23 @@ get_header(); ?>
 				</section>
 				
 				<?php $level = 'Secundaria'; ?>
+				
+				<?php
+
+				// Meta keys
+				$field_nivel		= $_POST['nivel'];
+				$field_grado		= $_POST['grado'];
+				$field_asignatura 	= $_POST['asignatura'];
+				$field_Bloque 		= $_POST['bloque'];
+
+				//Meta values
+				$nivel;
+				$grado;
+				$grupo;
+				$bloque;
+				
+				?>
+				
 				<?php $meta_query = array(
 					//query preescolar
 					'meta_key' => 'pl_nivel',

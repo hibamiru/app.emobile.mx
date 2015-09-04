@@ -1439,7 +1439,7 @@ function query_user_plans() {
 function get_plans($inargs = array()) {
 	$result = FALSE;
 	$args = array(
-			'posts_per_page' => 10000,
+			'posts_per_page' => 100000,
 			'nopaging' => true,
 		);
 		
