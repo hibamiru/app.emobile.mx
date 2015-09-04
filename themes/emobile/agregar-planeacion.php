@@ -9,6 +9,18 @@
  */
 
 //user_redirect();
+
+//Tmp redirect
+$user_ID = get_current_user_id();
+$is_logged_in = is_user_logged_in();
+$is_regular = get_user_meta( $user_ID, 'tipo_usuario', true );
+if ($is_regular)
+{
+        wp_redirect( site_url( '/consultar-planeaciones/' ) ); exit;
+}
+//End tmp redirect
+
+
 acf_form_head();
 $user_ID = get_current_user_id();
 $user_meta	= get_user_meta( $user_ID );

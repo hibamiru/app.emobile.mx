@@ -19,8 +19,8 @@ get_header(); ?>
 <div class="home-container">
 	
     <?php if ( have_posts() ) : ?>
-		<section class="container">
-				<?php $args = array(
+        <section class="container">
+                <?php $args = array(
                     'echo'           => true,
                     'redirect'       => site_url( '/escritorio' ), 
                     'form_id'        => 'loginform',
@@ -55,5 +55,6 @@ get_header(); ?>
     <?php endif; ?>
 
 </div>
+<?php echo do_shortcode('[in_custom_registration]'); ?>
 
 <?php get_footer(); ?>

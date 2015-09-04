@@ -592,7 +592,6 @@ add_action( 'wp_enqueue_scripts', 'editar_planeacion_sh' );
 //add_filter('login_form_bottom', 'custom_login_footer');
 
 add_action('init','custom_login');
-
 function custom_login(){
 	global $pagenow;
 	if( 'wp-login.php' == $pagenow ) {
@@ -628,11 +627,24 @@ function send_through_smtp( $phpmailer ) {
 function user_redirect() {
 	$user_ID = get_current_user_id();
 	$is_logged_in = is_user_logged_in();
+	$is_regular = get_user_meta( $user_ID, 'tipo_usuario', true );
 	$is_fc = get_user_meta( $user_ID, 'p_fc', true );
 	$is_ipad_sn = get_user_meta( $user_ID, 'p_nserie_ipad', true );
 	$is_home = is_home();
 	if ($is_logged_in)
 	{
+		
+		//Don't bother regular users
+		if ($is_regular)
+		{
+			
+			if (is_page('escritorio') OR is_page('agregar-planeacion') OR is_page('registro'))
+			{
+				wp_redirect( site_url( '/buscar-planeaciones/' ) ); exit;
+			}
+			
+		}
+
 		if (!$is_fc)
 		{
 			if (is_page_template('validar-formulario.php'))
